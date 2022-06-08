@@ -51,6 +51,8 @@ public class TimelineActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 onLogoutButton();
+                client.clearAccessToken();
+
             }
         });
 
