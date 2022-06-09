@@ -9,6 +9,7 @@ public class User {
     public String name;
     public String screenName;
     public String profileImageUrl;
+    public String mediaUrl;
 
     public User() {}
     public static User fromJson(JSONObject jsonObject) throws JSONException {

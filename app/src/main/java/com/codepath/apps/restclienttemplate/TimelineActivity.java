@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -32,12 +33,14 @@ public class TimelineActivity extends AppCompatActivity {
 
     public static final String TAG = "TimelineActivity";
     private final int REQUEST_CODE = 20;
+    private EndlessRecyclerViewScrollListener rvScrollListener;
     TwitterClient client;
     RecyclerView rvTweets;
     List<Tweet> tweets;
     TweetsAdapter adapter;
     Button logoutButton;
     SwipeRefreshLayout swipeContainer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,13 +53,21 @@ public class TimelineActivity extends AppCompatActivity {
         rvTweets = findViewById(R.id.rvTweets);
         tweets = new ArrayList<>();
         adapter = new TweetsAdapter(this, tweets);
+        LinearLayoutManager lin = new LinearLayoutManager(this);
         logoutButton = findViewById(R.id.Logout);
         //initialize list of tweets and adapter
         //recycler view setup
         rvTweets.setLayoutManager(new LinearLayoutManager(this));
         rvTweets.setAdapter(adapter);
         populateHomeTimeline();
+        rvScrollListener = new EndlessRecyclerViewScrollListener(lin) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
 
+            }
+        };
 
         logoutButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -83,15 +94,29 @@ public class TimelineActivity extends AppCompatActivity {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
+
+
+        // Find the toolbar view inside the activity layout
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        // Sets the Toolbar to act as the ActionBar for this Activity window.
+        // Make sure the toolbar exists in the activity and is not null
+        setSupportActionBar(toolbar);
     }
+
+
     public void fetchTimelineAsync(int page){
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
-                adapter.clear();
-                adapter.addAll(tweets);
-                swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright);
-                swipeContainer.setRefreshing(false);
+               try {
+                   adapter.clear();
+                   adapter.addAll(Tweet.fromJsonArray(json.jsonArray));
+                   swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright);
+                   swipeContainer.setRefreshing(false);
+               } catch (JSONException e) {
+                   e.printStackTrace();
+               }
+
             }
 
             @Override
@@ -99,6 +124,7 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.d("DEBUG", "Fetch timeline error: " + e.toString());
             }
         });
+
     }
 
 
