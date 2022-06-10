@@ -20,21 +20,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="4dp"
         android:layout_toEndOf="@+id/ivProfileImage"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         android:textStyle="bold"
-        tools:text="Larzmarz" />
+        tools:text="larzmarz" />
 
     <TextView
         android:id="@+id/tvBody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvScreenName"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="20dp"
+        android:linksClickable="true"
         android:layout_toEndOf="@+id/ivProfileImage"
         android:textColor="@android:color/black"
         tools:text="This is my tweet" />
@@ -45,19 +46,21 @@
         android:layout_height="99dp"
         android:layout_below="@+id/tvBody"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="14dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/tvDate"
         android:layout_width="wrap_content"
-        android:layout_height="22dp"
+        android:layout_height="19dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="242dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="200dp"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:textColor="@android:color/darker_gray"
         tools:text="date" />
 
     <ImageButton
@@ -65,9 +68,12 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_below="@id/ivMedia"
+        android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginStart="67dp"
         android:layout_marginTop="0dp"
-        android:layout_marginBottom="0dp"
+        android:layout_marginBottom="-2dp"
+        android:backgroundTint="#00FFFFFF"
         app:srcCompat="@android:drawable/btn_star_big_off" />
 
     <TextView
@@ -80,5 +86,17 @@
         android:layout_toRightOf="@+id/ibFav"
         android:text="0"
         android:textColor="@android:color/black" />
+
+    <ImageButton
+        android:id="@+id/ibReply"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/ivMedia"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="86dp"
+        android:layout_marginTop="-2dp"
+        android:layout_toEndOf="@+id/ibFav"
+        android:background="#00FFFFFF"
+        app:srcCompat="@android:drawable/ic_menu_send" />
 
 </RelativeLayout>

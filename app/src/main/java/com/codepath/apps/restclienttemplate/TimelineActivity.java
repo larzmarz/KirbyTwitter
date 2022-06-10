@@ -74,9 +74,12 @@ public class TimelineActivity extends AppCompatActivity {
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 // Triggered only when new data needs to be appended to the list
                 // Add whatever code is needed to append new items to the bottom of the list
-
+                long tweetId = tweets.get(tweets.size() - 1).idL;
+                loadNextDataFromApi(tweetId);
             }
         };
+        rvTweets.addOnScrollListener(rvScrollListener);
+
 
         logoutButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -111,9 +114,39 @@ public class TimelineActivity extends AppCompatActivity {
         // Make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbar);
     }
+    public void loadNextDataFromApi(long offset) {
+        client.endlessHomeTimeline(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                try {
+                    tweets.addAll(Tweet.fromJsonArray(json.jsonArray));
+                    adapter.notifyDataSetChanged();
+                    Log.i(TAG, String.valueOf(offset));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                swipeContainer.setRefreshing(false);
+
+            }
+            @Override
+            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+                Log.d("DEBUG", "Fetch timeline error: " + throwable.toString());
+                swipeContainer.setRefreshing(false);
+
+            }
+
+
+        }, offset);
+        // Send an API request to retrieve appropriate paginated data
+        //  --> Send the request including an offset value (i.e page) as a query parameter.
+        //  --> Deserialize and construct new model objects from the API response
+        //  --> Append the new data objects to the existing set of items inside the array of items
+        //  --> Notify the adapter of the new items made with notifyItemRangeInserted()
+    }
 
 
     public void fetchTimelineAsync(int page){
+
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {

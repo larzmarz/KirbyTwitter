@@ -64,6 +64,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvDate;
         ImageButton ibFav;
         TextView tvFavCount;
+        ImageButton ibReply;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,6 +75,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvDate = itemView.findViewById(R.id.tvDate);
             ibFav = itemView.findViewById(R.id.ibFav);
             tvFavCount = itemView.findViewById(R.id.tvFavCount);
+            ibReply = itemView.findViewById(R.id.ibReply);
         }
         public void bind(Tweet tweet){
             tvBody.setText(tweet.body);
@@ -82,7 +84,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             Glide.with(context).load(tweet.user.profileImageUrl).into(ivProfileImage);
             tvDate.setText(tweet.getFormattedTimeStamp());
             tvFavCount.setText(String.valueOf(tweet.favCount));
-
+            Drawable newPic = context.getDrawable(android.R.drawable.ic_menu_send);
+            ibReply.setImageDrawable(newPic);
             if(!Objects.equals(tweet.pic_url, "none")){
                 ivMedia.setVisibility(View.VISIBLE);
                 Glide.with(context).load(tweet.pic_url).into(ivMedia);
@@ -126,7 +129,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                     }
                     //else if already Favorited
                     else{
-                        TwitterApp.getRestClient(context).favoriteTweet(tweet.id, new JsonHttpResponseHandler() {
+                        TwitterApp.getRestClient(context).unfavoriteTweet(tweet.id, new JsonHttpResponseHandler() {
                             @Override
                             public void onSuccess(int statusCode, Headers headers, JSON json) {
                                 Log.i("adapter", "This should've been unfavorited");

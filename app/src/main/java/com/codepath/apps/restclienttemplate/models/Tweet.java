@@ -22,6 +22,7 @@ public class Tweet {
     public int favCount;
     public int rTcount;
     public String id;
+    public long idL;
 
     public Tweet(){}
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
@@ -38,6 +39,7 @@ public class Tweet {
         tweet.favCount = jsonObject.getInt("favorite_count");
         tweet.rTcount = jsonObject.getInt("retweet_count");
         tweet.id = jsonObject.getString("id_str");
+        tweet.idL = jsonObject.getLong("id");
         //here I would keep adding extra features such as retweet, userID, favorited
 
         if(!jsonObject.getJSONObject("entities").has("media")){
