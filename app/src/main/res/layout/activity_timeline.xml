@@ -44,4 +44,12 @@
         android:layout_marginBottom="5dp"
         android:background="#00BCD4"
         android:text="Logout" />
+
+    <ProgressBar
+        android:id="@+id/pbLoading"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentTop="false" />
 </RelativeLayout>

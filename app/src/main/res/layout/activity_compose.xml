@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/darker_gray"
+    android:background="#81B0B6"
     tools:context=".ComposeActivity">
 
     <com.google.android.material.textfield.TextInputLayout
@@ -25,8 +25,11 @@
             android:ems="10"
             android:gravity="start|top"
             android:hint="What's happening?"
+            android:textColorHint="#000000"
             android:inputType="textMultiLine"
-            android:minLines="5" />
+            android:minLines="5"
+            android:textColor="@android:color/black"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
