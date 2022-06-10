@@ -5,16 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tvDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="104dp"
-        android:text="TextView" />
-
     <ImageView
         android:id="@+id/ivProfileImage"
         android:layout_width="45dp"
@@ -58,5 +48,37 @@
         android:layout_marginStart="70dp"
         android:layout_marginTop="5dp"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="242dp"
+        tools:text="date" />
+
+    <ImageButton
+        android:id="@+id/ibFav"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/ivMedia"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        app:srcCompat="@android:drawable/btn_star_big_off" />
+
+    <TextView
+        android:id="@+id/tvFavCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/ibFav"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="9dp"
+        android:layout_toRightOf="@+id/ibFav"
+        android:text="0"
+        android:textColor="@android:color/black" />
 
 </RelativeLayout>

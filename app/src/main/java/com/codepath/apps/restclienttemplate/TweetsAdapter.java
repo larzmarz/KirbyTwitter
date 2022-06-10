@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -56,6 +57,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvScreenName;
         ImageView ivMedia;
         TextView tvDate;
+        ImageButton ibFav;
+        TextView tvFavCount;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -64,6 +67,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
             ivMedia = itemView.findViewById(R.id.ivMedia);
             tvDate = itemView.findViewById(R.id.tvDate);
+            ibFav = itemView.findViewById(R.id.ibFav);
+            tvFavCount = itemView.findViewById(R.id.tvFavCount);
         }
         public void bind(Tweet tweet){
             tvBody.setText(tweet.body);
@@ -71,12 +76,27 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvScreenName.setText(tweet.user.screenName);
             Glide.with(context).load(tweet.user.profileImageUrl).into(ivProfileImage);
             tvDate.setText(tweet.getFormattedTimeStamp());
+
             if(!Objects.equals(tweet.pic_url, "none")){
                 ivMedia.setVisibility(View.VISIBLE);
                 Glide.with(context).load(tweet.pic_url).into(ivMedia);
             }else{
                 ivMedia.setVisibility(View.GONE);
             }
+            ibFav.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //if not already favorited
+                        // tell Twitter I want to favorite this
+                        //change the drawable to big on star (yellow star)
+                        //change the text inside tvFavoriteCount
+                        //increment the text inside tvFavCount
+                    //else if already Favorited
+                        //tell twitter to UNfavortie this
+                        //change the drawable back to the off star
+                        //decrement the text inside tvFavCount
+                }
+            });
         }
     }
     public void clear(){
