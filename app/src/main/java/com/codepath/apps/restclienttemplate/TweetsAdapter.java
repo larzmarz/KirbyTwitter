@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.codepath.apps.restclienttemplate.models.TimeFormatter;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import java.util.List;
@@ -54,6 +55,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvBody;
         TextView tvScreenName;
         ImageView ivMedia;
+        TextView tvDate;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -61,13 +63,14 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvBody = itemView.findViewById(R.id.tvBody);
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
             ivMedia = itemView.findViewById(R.id.ivMedia);
+            tvDate = itemView.findViewById(R.id.tvDate);
         }
         public void bind(Tweet tweet){
             tvBody.setText(tweet.body);
+            //tvBody.setText(tweet.getFormattedTimeStamp());
             tvScreenName.setText(tweet.user.screenName);
             Glide.with(context).load(tweet.user.profileImageUrl).into(ivProfileImage);
-            //Glide.with(context).load(tweet.user.mediaUrl).into(ivMedia);
-
+            tvDate.setText(tweet.getFormattedTimeStamp());
             if(!Objects.equals(tweet.pic_url, "none")){
                 ivMedia.setVisibility(View.VISIBLE);
                 Glide.with(context).load(tweet.pic_url).into(ivMedia);
