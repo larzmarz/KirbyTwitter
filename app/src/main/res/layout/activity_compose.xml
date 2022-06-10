@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
     tools:context=".ComposeActivity">
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ti"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ti"
         app:counterEnabled="true"
         app:counterMaxLength="140">
+
         <EditText
             android:id="@+id/etCompose"
             android:layout_width="match_parent"
