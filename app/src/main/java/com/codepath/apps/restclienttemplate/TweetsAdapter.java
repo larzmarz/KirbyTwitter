@@ -1,6 +1,8 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.TimeFormatter;
 import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import java.util.List;
 import java.util.Objects;
+
+import okhttp3.Headers;
 
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder>{
     Context context;
@@ -76,6 +81,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvScreenName.setText(tweet.user.screenName);
             Glide.with(context).load(tweet.user.profileImageUrl).into(ivProfileImage);
             tvDate.setText(tweet.getFormattedTimeStamp());
+            tvFavCount.setText(String.valueOf(tweet.favCount));
 
             if(!Objects.equals(tweet.pic_url, "none")){
                 ivMedia.setVisibility(View.VISIBLE);
@@ -83,18 +89,65 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             }else{
                 ivMedia.setVisibility(View.GONE);
             }
+            if(tweet.isFavorited){
+                Drawable newImage = context.getDrawable(android.R.drawable.btn_star_big_on);
+                ibFav.setImageDrawable(newImage);
+            }else{
+                Drawable newImage = context.getDrawable(android.R.drawable.btn_star_big_off);
+                ibFav.setImageDrawable(newImage);
+            }
             ibFav.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     //if not already favorited
-                        // tell Twitter I want to favorite this
-                        //change the drawable to big on star (yellow star)
-                        //change the text inside tvFavoriteCount
-                        //increment the text inside tvFavCount
+                    if(!tweet.isFavorited) {
+                        //hard: tell Twitter I want to favorite this
+                        tweet.isFavorited = true;
+                        TwitterApp.getRestClient(context).favoriteTweet(tweet.id, new JsonHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                                Log.i("adapter", "This should've been favorited");
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+
+                            }
+                        });
+
+                        //easy: change the drawable to big on star (yellow star)
+
+                        Drawable newImage = context.getDrawable(android.R.drawable.btn_star_big_on);
+                        ibFav.setImageDrawable(newImage);
+                        //med: increment the text inside tvFavCount
+                        tweet.favCount++;
+                        tvFavCount.setText(String.valueOf(tweet.favCount));
+
+                    }
                     //else if already Favorited
+                    else{
+                        TwitterApp.getRestClient(context).favoriteTweet(tweet.id, new JsonHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                                Log.i("adapter", "This should've been unfavorited");
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+
+                            }
+                        });
                         //tell twitter to UNfavortie this
                         //change the drawable back to the off star
+                        tweet.isFavorited = false;
+                        Drawable newImage = context.getDrawable(android.R.drawable.btn_star_big_off);
+                        ibFav.setImageDrawable(newImage);
                         //decrement the text inside tvFavCount
+                        tweet.favCount--;
+                        tvFavCount.setText(String.valueOf(tweet.favCount));
+
+                    }
+
                 }
             });
         }
