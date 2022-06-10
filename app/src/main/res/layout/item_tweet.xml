@@ -23,6 +23,9 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="0dp"
         android:layout_toEndOf="@+id/ivProfileImage"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
         tools:text="Larzmarz" />
 
     <TextView
@@ -33,6 +36,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="2dp"
         android:layout_toEndOf="@+id/ivProfileImage"
+        android:textColor="@android:color/black"
         tools:text="This is my tweet" />
 
     <ImageView

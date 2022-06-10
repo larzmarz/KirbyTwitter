@@ -4,25 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".TimelineActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:minHeight="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        app:titleTextColor="@android:color/white"
-        android:background="?attr/colorPrimary">
-    </androidx.appcompat.widget.Toolbar>
+        android:background="@android:color/holo_blue_light"
+        android:minHeight="?attr/actionBarSize"
+        app:titleTextColor="@android:color/white"></androidx.appcompat.widget.Toolbar>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeContainer"
-        android:layout_below="@+id/toolbar"
-        android:layout_above="@+id/Logout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Logout"
+        android:layout_below="@+id/toolbar"
+        app:swipeRefreshLayoutProgressSpinnerBackgroundColor="@color/design_default_color_background">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTweets"
@@ -41,5 +42,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="5dp"
+        android:background="#00BCD4"
         android:text="Logout" />
 </RelativeLayout>
