@@ -35,7 +35,7 @@ The following **optional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://imgur.com/a/WUxqft9' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src=['[(https://imgur.com/a/3XHauti)'] title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 ## Notes
 Ran into an issue when trying to incorporate endless scrolling
