@@ -68,6 +68,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         ImageButton ibFav;
         TextView tvFavCount;
         ImageButton ibReply;
+        TextView tvUser;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -79,6 +80,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             ibFav = itemView.findViewById(R.id.ibFav);
             tvFavCount = itemView.findViewById(R.id.tvFavCount);
             ibReply = itemView.findViewById(R.id.ibReply);
+            tvUser = itemView.findViewById(R.id.tvUser);
         }
         public void bind(Tweet tweet){
             tvBody.setText(tweet.body);
@@ -89,6 +91,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvFavCount.setText(String.valueOf(tweet.favCount));
             Drawable newPic = context.getDrawable(android.R.drawable.ic_menu_send);
             ibReply.setImageDrawable(newPic);
+            tvUser.setText(String.valueOf(tweet.user.name));
             if(!Objects.equals(tweet.pic_url, "none")){
                 ivMedia.setVisibility(View.VISIBLE);
                 Glide.with(context).load(tweet.pic_url).into(ivMedia);

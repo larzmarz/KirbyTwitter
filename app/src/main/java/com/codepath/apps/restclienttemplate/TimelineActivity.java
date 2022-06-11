@@ -56,10 +56,8 @@ public class TimelineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
-
         client =  TwitterApp.getRestClient(this);
-
-        //find rv
+        //find the tweets
         rvTweets = findViewById(R.id.rvTweets);
         tweets = new ArrayList<>();
         adapter = new TweetsAdapter(this, tweets);
@@ -80,8 +78,6 @@ public class TimelineActivity extends AppCompatActivity {
             }
         };
         rvTweets.addOnScrollListener(rvScrollListener);
-
-
         logoutButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -90,7 +86,6 @@ public class TimelineActivity extends AppCompatActivity {
 
             }
         });
-
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         // Setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -107,8 +102,6 @@ public class TimelineActivity extends AppCompatActivity {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-
-
         // Find the toolbar view inside the activity layout
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         // Sets the Toolbar to act as the ActionBar for this Activity window.
@@ -127,16 +120,12 @@ public class TimelineActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 swipeContainer.setRefreshing(false);
-
             }
             @Override
             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
                 Log.d("DEBUG", "Fetch timeline error: " + throwable.toString());
                 swipeContainer.setRefreshing(false);
-
             }
-
-
         }, offset);
         // Send an API request to retrieve appropriate paginated data
         //  --> Send the request including an offset value (i.e page) as a query parameter.
